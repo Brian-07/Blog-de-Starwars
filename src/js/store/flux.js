@@ -1,3 +1,5 @@
+import { bool } from "prop-types";
+
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
@@ -12,9 +14,35 @@ const getState = ({ getStore, getActions, setStore }) => {
 					background: "white",
 					initial: "white"
 				}
-			]
+			],
+			favoritos:[],
+			
 		},
 		actions: {
+			agregarFavorito: (n) => {
+				
+				const store = getStore()
+				const auxFavoritos = [...store.favoritos];
+				const resultado = auxFavoritos.map((fav)=>{
+					return fav.n;
+				})
+				if(resultado.includes(n) == false){
+					auxFavoritos.push({
+						uid:auxFavoritos.length + 1,
+						n,	
+				});
+				}else if(resultado.includes(n) == true){
+					alert("Ya tienes agregado ese favorito!")
+				};
+				setStore({favoritos: auxFavoritos});
+			},
+			removerFavorito: (uid) =>{
+				const store = getStore()
+				const auxFavoritos = [...store.favoritos];
+				const resultado = auxFavoritos.filter((fav) => fav.uid !== uid)
+				setStore({favoritos: resultado});
+				
+			},
 			// Use getActions to call a function within a fuction
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");

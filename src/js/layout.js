@@ -6,9 +6,15 @@ import { Home } from "./views/home";
 import { Demo } from "./views/demo";
 import { Single } from "./views/single";
 import injectContext from "./store/appContext";
+import Planeta from "./views/planeta";
+import Persona from "./views/persona";
+import Vehiculo from "./views/vehiculo";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
+import Especie from "./views/especie";
+import Nave from "./views/nave";
+import Pelicula from "./views/pelicula";
 
 //create your first component
 const Layout = () => {
@@ -30,6 +36,24 @@ const Layout = () => {
 						</Route>
 						<Route exact path="/single/:theid">
 							<Single />
+						</Route>
+						<Route exact path="/planeta/:uid">
+							<Planeta />
+						</Route>
+						<Route exact path="/persona/:uid">
+							<Persona />
+						</Route>
+						<Route exact path="/especie/:uid">
+							<Especie />
+						</Route>
+						<Route exact path="/vehiculo/:uid">
+							<Vehiculo />
+						</Route>
+						<Route exact path="/nave/:uid">
+							<Nave />
+						</Route>
+						<Route exact path="/pelicula/:uid">
+							<Pelicula />
 						</Route>
 						<Route>
 							<h1>Not found!</h1>
