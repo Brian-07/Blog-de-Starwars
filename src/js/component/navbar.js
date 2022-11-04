@@ -9,47 +9,56 @@ export const Navbar = () => {
 	const history = useHistory()
 	const {store, actions} = useContext(Context);
 	const [title, setTitle] = useState('');
-	const [planetas, modificarPlanetas] = useState('');
-	const [personas, modificarPersonas] = useState('');
+	const [planetas, modificarPlanetas] = useState([]);
+	const [personas, modificarPersonas] = useState([]);
 
 
-	useEffect(() => {
+	useEffect(async() => {
 		loadPlanets()
 		loadPerson()		
 	}, [])
-
+	
 
 	const loadPlanets = () => {
-		const localPlaneta = localStorage.planetas;
-		const _planetas = localPlaneta ? JSON.parse(localPlaneta) : []
+		const localPlaneta =  localStorage.planetas;
+		const _planetas =   localPlaneta ? JSON.parse(localPlaneta) : []
 		modificarPlanetas(_planetas)
+		
 	}	
 	const loadPerson = () => {
-		const localPersona = localStorage.personas;
-		const _personas = localPersona ? JSON.parse(localPersona) : []
+		const localPersona =  localStorage.personas;
+		const _personas =  localPersona ? JSON.parse(localPersona) : []
 		modificarPersonas(_personas)
 	}
 
-
-	
 	const buscador =() => { 
-		if (title === "") {
-			return;
+		 if (title === "") {
+			return ;
 		} 
 		
-		const planetasResult = planetas.filter((planeta) => {
+		if (!planetas?.length) {
+			loadPlanets()
+		}
+		if (!personas?.length) {
+			loadPerson()
+		}		
+		
+		const planetasResult =  planetas.filter((planeta) => {
 			return planeta.name.toLocaleLowerCase().includes(title)
 		})
 
-		const personasResult = personas.filter((persona) => {
+		const personasResult =  personas.filter((persona) => {
 			return persona.name.toLocaleLowerCase().includes(title)
 		})
 		
-		const resultados = [
+		const resultados =  [
 			...planetasResult,
 			 ...personasResult,
 		]
-		return <>
+		
+		console.log({ resultados });
+
+		 return <>
 			{ resultados.map((obj,i) => {
 				return (
 					<option key={i} value={obj.name} />

@@ -7,24 +7,16 @@ import { Context } from "../store/appContext";
 
 export const TagPlanetas = () => {
 	const [planetas, modificarPlanetas] = useState(null);
-	// const [cargando, modificarCargando] = useState(true);
 	const {actions} = useContext(Context)
-
-	// const dataPlaneta = JSON.parse(localStorage.getItem("planetas"))
-
-
+	
 	const _request = async () => {
 		const res = await fetch(`${config.HOSTNAME}/planets`)
 		if (res.status !== 200) {
-			console.log("Error request.")
 			return [];
 		}
 		const data = await res.json();
 		return data.results;
 
-		// TODO: Validar request.
-		// localStorage.setItem("planetas", JSON.stringify(data.results))
-		// localStorage.planetas = JSON.stringify(data.results)
 	}
 
 	useEffect(async () => {
